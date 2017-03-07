@@ -1,0 +1,11 @@
+{
+  "name": "pathfinder",
+  "version": "1.0.0",
+  "description": "A function for finding paths through mazes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Anthony Cleaver",
+  "license": "ISC"
+}
