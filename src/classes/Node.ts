@@ -98,7 +98,35 @@ export class Node implements INode {
         return nodes;
     }
 
+    public static isConnected(node1: INode, node2: INode, problem: Tile[][]): boolean {
+        let startPosition: IPosition = {
+            x: node1.position.x > node2.position.x ? node2.position.x : node1.position.x,
+            y: node1.position.y > node2.position.y ? node2.position.y : node1.position.y
+        };
+
+        let endPosition: IPosition = {
+            x: node1.position.x > node2.position.x ? node1.position.x : node2.position.x,
+            y: node1.position.y > node2.position.y ? node1.position.y : node2.position.y
+        };
+
+        let isConnected: boolean = true;
+
+        for (let x: number = startPosition.x; x <= endPosition.x; x++) {
+            for (let y: number = startPosition.y; y <= endPosition.y; y++) {
+                if (problem[y][x] === Tile.OBSTACLE) {
+                    isConnected = false;
+                }
+            }
+        }
+
+        return isConnected;
+    }
+
     public addChildNode(childNode: INode): void {
         this.childNodes.push(childNode);
+    }
+
+    public toString() {
+        return JSON.stringify(this.position);
     }
 }
