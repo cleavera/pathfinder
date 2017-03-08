@@ -127,7 +127,7 @@ export class Node implements INode {
         this.childNodes.push(childNode);
     }
 
-    public toString() {
+    public toString(): string {
         return JSON.stringify(this.position);
     }
 }
