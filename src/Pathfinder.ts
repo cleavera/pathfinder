@@ -3,7 +3,7 @@ import {Node} from './classes/Node';
 import {Tile} from './constants/Tile.constant';
 import {IJourney} from './interfaces/IJourney.interface';
 import {INode} from './interfaces/INode.interface';
-import {IPosition} from "./interfaces/IPosition.interface";
+import {IPosition} from './interfaces/IPosition.interface';
 
 function traverse(node: INode, endNode: INode, journey?: IJourney): IJourney {
     if (!journey) {
