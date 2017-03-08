@@ -6,6 +6,7 @@ import {MissingStartError} from '../errors/MissingStart.error';
 import {$get} from '../helpers/GetProp.helper';
 import {INode} from '../interfaces/INode.interface';
 import {IPosition} from '../interfaces/IPosition.interface';
+import {Position} from './Position';
 
 export class Node implements INode {
     public position: IPosition;
@@ -28,13 +29,13 @@ export class Node implements INode {
                         throw new DuplicateStartError();
                     }
 
-                    start = new Node({ x, y });
+                    start = new Node(new Position(x, y));
                 } else if (tile === Tile.END) {
                     if (end) {
                         throw new DuplicateEndError();
                     }
 
-                    end = new Node({ x, y });
+                    end = new Node(new Position(x, y));
                 } else if (tile === Tile.EMPTY) {
                     /*
                      * 0 1 2
@@ -55,13 +56,13 @@ export class Node implements INode {
 
                     if (neighbours[3] === Tile.EMPTY) {
                         if (neighbours[1] === Tile.EMPTY && neighbours[0] === Tile.OBSTACLE) {
-                            nodes.push(new Node({x, y}));
+                            nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
 
                         if (neighbours[7] === Tile.EMPTY && neighbours[6] === Tile.OBSTACLE) {
-                            nodes.push(new Node({x, y}));
+                            nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
@@ -69,13 +70,13 @@ export class Node implements INode {
 
                     if (neighbours[5] === Tile.EMPTY) {
                         if (neighbours[1] === Tile.EMPTY && neighbours[2] === Tile.OBSTACLE) {
-                            nodes.push(new Node({x, y}));
+                            nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
 
                         if (neighbours[7] === Tile.EMPTY && neighbours[8] === Tile.OBSTACLE) {
-                            nodes.push(new Node({x, y}));
+                            nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
