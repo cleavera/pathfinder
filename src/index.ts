@@ -1,33 +1,33 @@
 import {Tile} from './constants/Tile.constant';
 import {Pathfinder} from './Pathfinder';
 
-Pathfinder([
+console.log(Pathfinder([
     [Tile.START, Tile.EMPTY, Tile.EMPTY],
     [Tile.EMPTY, Tile.EMPTY, Tile.EMPTY],
     [Tile.EMPTY, Tile.EMPTY, Tile.EMPTY],
     [Tile.EMPTY, Tile.EMPTY, Tile.END  ]
-]);
+]));
 
-Pathfinder([
+console.log(Pathfinder([
     [Tile.START   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY],
     [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY],
     [Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY],
     [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY],
     [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.END  ]
-]);
+]));
 
-Pathfinder([
+console.log(Pathfinder([
     [Tile.START   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
     [Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.EMPTY   ],
     [Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   ],
     [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
     [Tile.END     , Tile.EMPTY   , Tile.EMPTY   , Tile.OBSTACLE]
-]);
+]));
 
-Pathfinder([
+console.log(Pathfinder([
     [Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
     [Tile.START   , Tile.EMPTY   , Tile.EMPTY   , Tile.OBSTACLE, Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
     [Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.OBSTACLE],
     [Tile.END     , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.OBSTACLE, Tile.EMPTY   , Tile.EMPTY   ],
     [Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ]
-]);
+]));

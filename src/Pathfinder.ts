@@ -3,6 +3,7 @@ import {Node} from './classes/Node';
 import {Tile} from './constants/Tile.constant';
 import {IJourney} from './interfaces/IJourney.interface';
 import {INode} from './interfaces/INode.interface';
+import {IPosition} from "./interfaces/IPosition.interface";
 
 function traverse(node: INode, endNode: INode, journey?: IJourney): IJourney {
     if (!journey) {
@@ -34,7 +35,7 @@ function traverse(node: INode, endNode: INode, journey?: IJourney): IJourney {
     return best;
 }
 
-export function Pathfinder(problem: Tile[][]): void {
+export function Pathfinder(problem: Tile[][]): IPosition[] {
     let nodes: Node[] = Node.extractNodes(problem);
 
     nodes.forEach((node1: Node) => {
@@ -47,5 +48,5 @@ export function Pathfinder(problem: Tile[][]): void {
         });
     });
 
-    console.log(traverse(nodes[0], nodes[nodes.length - 1]).toString());
+    return traverse(nodes[0], nodes[nodes.length - 1]).path;
 }
