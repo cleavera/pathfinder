@@ -17,34 +17,29 @@ function parseResponse(input, response) {
         var position = response[i],
             next = response[i + 1];
 
-        if (input[position.y][position.x] !== Tile.EMPTY) {
+        if (!next) {
+            input[position.y][position.x] = Tile.END;
             continue;
         }
 
-        if (position.x === next.x) {
-            if (position.y < next.y) {
-                input[position.y][position.x] = '▾';
-            } else {
-                input[position.y][position.x] = '▴';
-            }
-        } else if (position.y === next.y) {
-            if (position.x < next.x) {
-                input[position.y][position.x] = '▸';
-            } else {
-                input[position.y][position.x] = '◂';
-            }
-        } else if (position.x > next.x) {
-            if (position.y < next.y) {
-                input[position.y][position.x] = '▫';
-            } else {
-                input[position.y][position.x] = '▫';
-            }
-        } else if (position.x < next.x) {
-            if (position.y < next.y) {
-                input[position.y][position.x] = '▫';
-            } else {
-                input[position.y][position.x] = '▫';
-            }
+        for (var j = position.x; j < next.x; j++) {
+            input[position.y][j] = '◦';
+        }
+
+        for (var k = position.y; k < next.y; k++) {
+            input[k][j] = '◦';
+        }
+
+        for (var l = position.x; l > next.x; l--) {
+            input[position.y][l] = '◦';
+        }
+
+        for (var m = position.y; m > next.y; m--) {
+            input[m][l] = '◦';
+        }
+
+        if (!response[i - 1]) {
+            input[position.y][position.x] = Tile.START;
         }
     }
 
@@ -62,7 +57,7 @@ function parseResponse(input, response) {
 
             return acc + point;
         }, '') + '■';
-    }, '') + '\n' + generateLine(input[0].length) + '\n\n');
+    }, '') + '\n' + generateLine(input[0].length));
 }
 
 var problems = [
@@ -102,8 +97,27 @@ var problems = [
     ]
 ];
 
+console.log('\n\nBefore:');
+parseResponse(problems[0], []);
+console.log('After:');
 parseResponse(problems[0], Pathfinder(problems[0]));
+
+console.log('\n\nBefore:');
+parseResponse(problems[1], []);
+console.log('After:');
 parseResponse(problems[1], Pathfinder(problems[1]));
+
+console.log('\n\nBefore:');
+parseResponse(problems[2], []);
+console.log('After:');
 parseResponse(problems[2], Pathfinder(problems[2]));
+
+console.log('\n\nBefore:');
+parseResponse(problems[3], []);
+console.log('After:');
 parseResponse(problems[3], Pathfinder(problems[3]));
+
+console.log('\n\nBefore:');
+parseResponse(problems[4], []);
+console.log('After:');
 parseResponse(problems[4], Pathfinder(problems[4]));
