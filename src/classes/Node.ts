@@ -114,8 +114,16 @@ export class Node implements INode {
 
         for (let x: number = startPosition.x; x <= endPosition.x; x++) {
             for (let y: number = startPosition.y; y <= endPosition.y; y++) {
-                if (problem[y][x] === Tile.OBSTACLE) {
+                let isNodeStartPosition: boolean = x === node1.position.x && y === node1.position.y,
+                    isNodeEndPosition: boolean = x === node2.position.x && y === node2.position.y,
+                    isObstacle: boolean = problem[y][x] === Tile.OBSTACLE,
+                    isStart: boolean = problem[y][x] === Tile.START,
+                    isEnd: boolean = problem[y][x] === Tile.END;
+
+                if (!isNodeStartPosition && !isNodeEndPosition && (isObstacle || isStart || isEnd)) {
                     isConnected = false;
+
+                    break;
                 }
             }
         }

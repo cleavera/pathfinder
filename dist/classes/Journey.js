@@ -11,6 +11,9 @@ class Journey {
             return node.position;
         });
     }
+    get length() {
+        return this._nodes.length;
+    }
     addNode(node) {
         this.distance += Position_1.Position.distance(node.position, this._nodes[this._nodes.length - 1].position);
         this._nodes.push(node);

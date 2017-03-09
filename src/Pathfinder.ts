@@ -1,6 +1,7 @@
 import {Journey} from './classes/Journey';
 import {Node} from './classes/Node';
 import {Tile} from './constants/Tile.constant';
+import {$get} from './helpers/GetProp.helper';
 import {IJourney} from './interfaces/IJourney.interface';
 import {INode} from './interfaces/INode.interface';
 import {IPosition} from './interfaces/IPosition.interface';
@@ -25,7 +26,7 @@ function traverse(node: INode, endNode: INode, journey?: IJourney): IJourney {
             } else {
                 let newJourney: IJourney = traverse(childNode, endNode, journey.clone());
 
-                if (newJourney && newJourney.distance < best.distance) {
+                if (newJourney && (newJourney.distance < best.distance || (newJourney.distance === best.distance && newJourney.length < best.length))) {
                     best = newJourney;
                 }
             }
@@ -48,5 +49,5 @@ export function Pathfinder(problem: Tile[][]): IPosition[] {
         });
     });
 
-    return traverse(nodes[0], nodes[nodes.length - 1]).path;
+    return $get(traverse(nodes[0], nodes[nodes.length - 1]), ['path'], null);
 }

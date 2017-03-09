@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const Journey_1 = require("./classes/Journey");
 const Node_1 = require("./classes/Node");
+const GetProp_helper_1 = require("./helpers/GetProp.helper");
 function traverse(node, endNode, journey) {
     if (!journey) {
         journey = new Journey_1.Journey(node);
@@ -20,7 +21,7 @@ function traverse(node, endNode, journey) {
             }
             else {
                 let newJourney = traverse(childNode, endNode, journey.clone());
-                if (newJourney && newJourney.distance < best.distance) {
+                if (newJourney && (newJourney.distance < best.distance || (newJourney.distance === best.distance && newJourney.length < best.length))) {
                     best = newJourney;
                 }
             }
@@ -39,6 +40,6 @@ function Pathfinder(problem) {
             }
         });
     });
-    return traverse(nodes[0], nodes[nodes.length - 1]).path;
+    return GetProp_helper_1.$get(traverse(nodes[0], nodes[nodes.length - 1]), ['path'], null);
 }
 exports.Pathfinder = Pathfinder;

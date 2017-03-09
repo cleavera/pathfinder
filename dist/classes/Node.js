@@ -90,8 +90,10 @@ class Node {
         let isConnected = true;
         for (let x = startPosition.x; x <= endPosition.x; x++) {
             for (let y = startPosition.y; y <= endPosition.y; y++) {
-                if (problem[y][x] === Tile_constant_1.Tile.OBSTACLE) {
+                let isNodeStartPosition = x === node1.position.x && y === node1.position.y, isNodeEndPosition = x === node2.position.x && y === node2.position.y, isObstacle = problem[y][x] === Tile_constant_1.Tile.OBSTACLE, isStart = problem[y][x] === Tile_constant_1.Tile.START, isEnd = problem[y][x] === Tile_constant_1.Tile.END;
+                if (!isNodeStartPosition && !isNodeEndPosition && (isObstacle || isStart || isEnd)) {
                     isConnected = false;
+                    break;
                 }
             }
         }

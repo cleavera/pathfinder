@@ -17,6 +17,10 @@ export class Journey implements IJourney {
         });
     }
 
+    public get length(): number {
+        return this._nodes.length;
+    }
+
     public addNode(node: INode): void {
         this.distance += Position.distance(node.position, this._nodes[this._nodes.length - 1].position);
         this._nodes.push(node);

@@ -6,6 +6,7 @@ export declare class Journey implements IJourney {
     private _nodes;
     constructor(start: INode);
     readonly path: Position[];
+    readonly length: number;
     addNode(node: INode): void;
     clone(): Journey;
     hasVisited(node: INode): boolean;

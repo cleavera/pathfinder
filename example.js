@@ -60,6 +60,26 @@ function parseResponse(input, response) {
     }, '') + '\n' + generateLine(input[0].length));
 }
 
+function runProblems(problems) {
+    problems.forEach(function(problem) {
+        console.log('\n\nProblem:');
+        parseResponse(problem, []);
+
+        var solution = Pathfinder(problem);
+
+        if (!solution) {
+            console.log('No solution');
+
+            return;
+        }
+
+        console.log('Solution: ' + solution.map(function(waypoint) {
+                return '[' + waypoint.x + ', ' + waypoint.y + ']';
+            }).join(', '));
+        parseResponse(problem, solution);
+    });
+}
+
 var problems = [
     [
         [Tile.START, Tile.EMPTY, Tile.EMPTY],
@@ -94,30 +114,21 @@ var problems = [
         [Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   ],
         [Tile.END     , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.OBSTACLE, Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
         [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ]
+    ],
+    [
+        [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.START   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
+        [Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE],
+        [Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE],
+        [Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE],
+        [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.END     , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ]
+    ],
+    [
+        [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.START   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
+        [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
+        [Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE, Tile.OBSTACLE],
+        [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],
+        [Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.END     , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ]
     ]
 ];
 
-console.log('\n\nBefore:');
-parseResponse(problems[0], []);
-console.log('After:');
-parseResponse(problems[0], Pathfinder(problems[0]));
-
-console.log('\n\nBefore:');
-parseResponse(problems[1], []);
-console.log('After:');
-parseResponse(problems[1], Pathfinder(problems[1]));
-
-console.log('\n\nBefore:');
-parseResponse(problems[2], []);
-console.log('After:');
-parseResponse(problems[2], Pathfinder(problems[2]));
-
-console.log('\n\nBefore:');
-parseResponse(problems[3], []);
-console.log('After:');
-parseResponse(problems[3], Pathfinder(problems[3]));
-
-console.log('\n\nBefore:');
-parseResponse(problems[4], []);
-console.log('After:');
-parseResponse(problems[4], Pathfinder(problems[4]));
+runProblems(problems);
