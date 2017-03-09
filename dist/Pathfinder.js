@@ -17,7 +17,7 @@ function traverse(node, endNode, journey) {
     node.childNodes.forEach((childNode) => {
         if (!journey.hasVisited(childNode)) {
             if (!best) {
-                best = traverse(childNode, endNode, journey);
+                best = traverse(childNode, endNode, journey.clone());
             }
             else {
                 let newJourney = traverse(childNode, endNode, journey.clone());

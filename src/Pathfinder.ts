@@ -22,7 +22,7 @@ function traverse(node: INode, endNode: INode, journey?: IJourney): IJourney {
     node.childNodes.forEach((childNode: INode) => {
         if (!journey.hasVisited(childNode)) {
             if (!best) {
-                best = traverse(childNode, endNode, journey);
+                best = traverse(childNode, endNode, journey.clone());
             } else {
                 let newJourney: IJourney = traverse(childNode, endNode, journey.clone());
 
