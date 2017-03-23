@@ -45,22 +45,22 @@ class Node {
                         GetProp_helper_1.$get(problem, [y + 1, x], null),
                         GetProp_helper_1.$get(problem, [y + 1, x + 1], null),
                     ];
-                    if (neighbours[3] === Tile_constant_1.Tile.EMPTY) {
-                        if (neighbours[1] === Tile_constant_1.Tile.EMPTY && neighbours[0] === Tile_constant_1.Tile.OBSTACLE) {
+                    if (neighbours[3] !== Tile_constant_1.Tile.OBSTACLE) {
+                        if (neighbours[1] !== Tile_constant_1.Tile.OBSTACLE && neighbours[0] === Tile_constant_1.Tile.OBSTACLE) {
                             nodes.push(new Node(new Position_1.Position(x, y)));
                             return;
                         }
-                        if (neighbours[7] === Tile_constant_1.Tile.EMPTY && neighbours[6] === Tile_constant_1.Tile.OBSTACLE) {
+                        if (neighbours[7] !== Tile_constant_1.Tile.OBSTACLE && neighbours[6] === Tile_constant_1.Tile.OBSTACLE) {
                             nodes.push(new Node(new Position_1.Position(x, y)));
                             return;
                         }
                     }
-                    if (neighbours[5] === Tile_constant_1.Tile.EMPTY) {
-                        if (neighbours[1] === Tile_constant_1.Tile.EMPTY && neighbours[2] === Tile_constant_1.Tile.OBSTACLE) {
+                    if (neighbours[5] !== Tile_constant_1.Tile.OBSTACLE) {
+                        if (neighbours[1] !== Tile_constant_1.Tile.OBSTACLE && neighbours[2] === Tile_constant_1.Tile.OBSTACLE) {
                             nodes.push(new Node(new Position_1.Position(x, y)));
                             return;
                         }
-                        if (neighbours[7] === Tile_constant_1.Tile.EMPTY && neighbours[8] === Tile_constant_1.Tile.OBSTACLE) {
+                        if (neighbours[7] !== Tile_constant_1.Tile.OBSTACLE && neighbours[8] === Tile_constant_1.Tile.OBSTACLE) {
                             nodes.push(new Node(new Position_1.Position(x, y)));
                             return;
                         }

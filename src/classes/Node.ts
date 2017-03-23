@@ -54,28 +54,28 @@ export class Node implements INode {
                         $get(problem, [y + 1, x + 1], null),
                     ];
 
-                    if (neighbours[3] === Tile.EMPTY) {
-                        if (neighbours[1] === Tile.EMPTY && neighbours[0] === Tile.OBSTACLE) {
+                    if (neighbours[3] !== Tile.OBSTACLE) {
+                        if (neighbours[1] !== Tile.OBSTACLE && neighbours[0] === Tile.OBSTACLE) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
 
-                        if (neighbours[7] === Tile.EMPTY && neighbours[6] === Tile.OBSTACLE) {
+                        if (neighbours[7] !== Tile.OBSTACLE && neighbours[6] === Tile.OBSTACLE) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
                     }
 
-                    if (neighbours[5] === Tile.EMPTY) {
-                        if (neighbours[1] === Tile.EMPTY && neighbours[2] === Tile.OBSTACLE) {
+                    if (neighbours[5] !== Tile.OBSTACLE) {
+                        if (neighbours[1] !== Tile.OBSTACLE && neighbours[2] === Tile.OBSTACLE) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
 
-                        if (neighbours[7] === Tile.EMPTY && neighbours[8] === Tile.OBSTACLE) {
+                        if (neighbours[7] !== Tile.OBSTACLE && neighbours[8] === Tile.OBSTACLE) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
