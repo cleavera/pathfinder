@@ -4,7 +4,8 @@
   "description": "A library for finding paths through 2d mazes",
   "main": "dist/index.js",
   "repository": {
-    "url": "https://github.com/cleavera/pathfinder"
+    "type": "git",
+    "url": "git+https://github.com/cleavera/pathfinder.git"
   },
   "scripts": {
     "build": "tsc",

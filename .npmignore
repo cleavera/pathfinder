@@ -1,0 +1,8 @@
+src
+tsconfig.json
+*.js.map
+example.js
+.idea
+tslint.json
+*.md
+*.tgz
