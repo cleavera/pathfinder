@@ -1,12 +1,12 @@
-import {Tile} from '../constants/Tile.constant';
-import {DuplicateEndError} from '../errors/DuplicateEnd.error';
-import {DuplicateStartError} from '../errors/DuplicateStart.error';
-import {MissingEndError} from '../errors/MissingEnd.error';
-import {MissingStartError} from '../errors/MissingStart.error';
-import {$get} from '../helpers/GetProp.helper';
-import {INode} from '../interfaces/INode.interface';
-import {IPosition} from '../interfaces/IPosition.interface';
-import {Position} from './Position';
+import {Tile} from '../constants/tile.constant';
+import {DuplicateEndError} from '../errors/duplicate-end.error';
+import {DuplicateStartError} from '../errors/duplicate-start.error';
+import {MissingEndError} from '../errors/missing-end.error';
+import {MissingStartError} from '../errors/missing-start.error';
+import {$get} from '../helpers/get-prop.helper';
+import {INode} from '../interfaces/node.interface';
+import {IPosition} from '../interfaces/position.interface';
+import {Position} from './position';
 
 export class Node implements INode {
     public position: IPosition;

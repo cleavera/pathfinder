@@ -1,10 +1,10 @@
-import {Journey} from './classes/Journey';
-import {Node} from './classes/Node';
-import {Tile} from './constants/Tile.constant';
-import {$get} from './helpers/GetProp.helper';
-import {IJourney} from './interfaces/IJourney.interface';
-import {INode} from './interfaces/INode.interface';
-import {IPosition} from './interfaces/IPosition.interface';
+import { Journey } from './classes/journey';
+import { Node } from './classes/node';
+import { Tile } from './constants/tile.constant';
+import { $get } from './helpers/get-prop.helper';
+import { IJourney } from './interfaces/journey.interface';
+import { INode } from './interfaces/node.interface';
+import { IPosition } from './interfaces/position.interface';
 
 function traverse(node: INode, endNode: INode, journey?: IJourney): IJourney {
     if (!journey) {
@@ -41,11 +41,11 @@ export function Pathfinder(problem: Tile[][]): IPosition[] {
 
     nodes.forEach((node1: Node) => {
         nodes.forEach((node2: Node) => {
-           if (Node.isConnected(node1, node2, problem)) {
-               if (node1 !== node2) {
-                   node1.addChildNode(node2);
-               }
-           }
+            if (Node.isConnected(node1, node2, problem)) {
+                if (node1 !== node2) {
+                    node1.addChildNode(node2);
+                }
+            }
         });
     });
 

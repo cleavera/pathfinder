@@ -1,6 +1,6 @@
-import {IJourney} from '../interfaces/IJourney.interface';
-import {INode} from '../interfaces/INode.interface';
-import {Position} from './Position';
+import {IJourney} from '../interfaces/journey.interface';
+import {INode} from '../interfaces/node.interface';
+import {Position} from './position';
 
 export class Journey implements IJourney {
     public distance: number;

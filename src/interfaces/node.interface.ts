@@ -1,4 +1,4 @@
-import {IPosition} from './IPosition.interface';
+import {IPosition} from './position.interface';
 
 export interface INode {
     position: IPosition;

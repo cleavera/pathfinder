@@ -1,5 +1,5 @@
-import {INode} from './INode.interface';
-import {IPosition} from './IPosition.interface';
+import {INode} from './node.interface';
+import {IPosition} from './position.interface';
 
 export interface IJourney {
     distance: number;

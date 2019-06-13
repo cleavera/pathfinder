@@ -1,7 +1,2 @@
-import {Tile} from './constants/Tile.constant';
-import {Pathfinder} from './Pathfinder';
-
-export {
-    Pathfinder,
-    Tile
-}
+export { Tile } from './constants/tile.constant';
+export { Pathfinder } from './pathfinder';
