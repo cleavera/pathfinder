@@ -1,17 +1,19 @@
 {
-  "name": "pathfinder",
+  "name": "mauro",
   "version": "1.0.0",
   "description": "A library for finding paths through mazes",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "tslint src && tsc",
-    "example": "node example",
+    "build": "npm run lint && npm run compile",
+    "compile": "tsc",
+    "example": "npm run compile && node example",
+    "lint": "tslint ./src ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Anthony Cleaver",
   "license": "ISC",
   "devDependencies": {
-    "tslint": "^4.3.1",
-    "typescript": "^2.0.10"
+    "tslint": "^5.17.0",
+    "typescript": "^3.5.1"
   }
 }
