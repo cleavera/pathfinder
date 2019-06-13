@@ -6,7 +6,7 @@ import { Position } from './position';
 
 export class Journey implements IJourney {
     public distance: number;
-    private _nodes: Array<INode>;
+    private readonly _nodes: Array<INode>;
 
     constructor(start: INode) {
         this._nodes = [start];
@@ -24,7 +24,7 @@ export class Journey implements IJourney {
     }
 
     public addNode(node: INode): void {
-        this.distance += Position.distance(node.position, this._nodes[this._nodes.length - 1].position);
+        this.distance += Position.distance(node.position, this.getLastNode().position);
         this._nodes.push(node);
     }
 
@@ -44,6 +44,10 @@ export class Journey implements IJourney {
         }
 
         return journey;
+    }
+
+    public getLastNode(): INode {
+        return this._nodes[this._nodes.length - 1];
     }
 
     public hasVisited(node: INode): boolean {
