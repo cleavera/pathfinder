@@ -1,19 +1,9 @@
 {
+  "extends": "@cleavera/config/tsconfig.json",
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es6",
-    "outDir": "dist",
-    "rootDir": "./src",
-    "strict": true,
-    "sourceMap": false,
-    "declaration": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node"
+    "outDir": "./dist"
   },
-  "exclude": [
-    "node_modules",
-    "src/**/*.spec.ts",
-    "example",
-    "dist"
+  "include": [
+    "./src/**/*"
   ]
 }

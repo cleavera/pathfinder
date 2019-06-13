@@ -11,19 +11,20 @@ import { Position } from './position';
 
 export class Node implements INode {
     public position: IPosition;
-    public childNodes: INode[];
+    public childNodes: Array<INode>;
 
     constructor(position: IPosition) {
         this.position = position;
         this.childNodes = [];
     }
 
-    public static ExtractNodes(problem: Tile[][]): Node[] {
+    public static ExtractNodes(problem: Array<Array<Tile>>): Array<Node> {
         let start: Maybe<Node> = null,
-            end: Maybe<Node> = null,
-            nodes: Node[] = [];
+            end: Maybe<Node> = null;
 
-        problem.forEach((row: Tile[], y: number) => {
+        const nodes: Array<Node> = [];
+
+        problem.forEach((row: Array<Tile>, y: number) => {
             row.forEach((tile: Tile, x: number) => {
                 if (tile === Tile.START) {
                     if (!$isNull(start)) {
@@ -43,16 +44,16 @@ export class Node implements INode {
                      * 3 X 5
                      * 6 7 8
                      */
-                    let neighbours: Tile[] = [
-                        $get(problem, [y - 1, x - 1], null),
-                        $get(problem, [y - 1, x], null),
-                        $get(problem, [y - 1, x + 1], null),
+                    const neighbours: Array<Maybe<Tile>> = [
+                        $get<Maybe<Tile>>(problem, [y - 1, x - 1], null),
+                        $get<Maybe<Tile>>(problem, [y - 1, x], null),
+                        $get<Maybe<Tile>>(problem, [y - 1, x + 1], null),
                         problem[y][x - 1],
                         null,
                         problem[y][x + 1],
-                        $get(problem, [y + 1, x - 1], null),
-                        $get(problem, [y + 1, x], null),
-                        $get(problem, [y + 1, x + 1], null),
+                        $get<Maybe<Tile>>(problem, [y + 1, x - 1], null),
+                        $get<Maybe<Tile>>(problem, [y + 1, x], null),
+                        $get<Maybe<Tile>>(problem, [y + 1, x + 1], null)
                     ];
 
                     if (neighbours[3] !== Tile.OBSTACLE) {
@@ -100,13 +101,13 @@ export class Node implements INode {
         return nodes;
     }
 
-    public static isConnected(node1: INode, node2: INode, problem: Tile[][]): boolean {
-        let startPosition: IPosition = {
+    public static isConnected(node1: INode, node2: INode, problem: Array<Array<Tile>>): boolean {
+        const startPosition: IPosition = {
             x: node1.position.x > node2.position.x ? node2.position.x : node1.position.x,
             y: node1.position.y > node2.position.y ? node2.position.y : node1.position.y
         };
 
-        let endPosition: IPosition = {
+        const endPosition: IPosition = {
             x: node1.position.x > node2.position.x ? node1.position.x : node2.position.x,
             y: node1.position.y > node2.position.y ? node1.position.y : node2.position.y
         };
@@ -115,7 +116,7 @@ export class Node implements INode {
 
         for (let x: number = startPosition.x; x <= endPosition.x; x++) {
             for (let y: number = startPosition.y; y <= endPosition.y; y++) {
-                let isNodeStartPosition: boolean = x === node1.position.x && y === node1.position.y,
+                const isNodeStartPosition: boolean = x === node1.position.x && y === node1.position.y,
                     isNodeEndPosition: boolean = x === node2.position.x && y === node2.position.y,
                     isObstacle: boolean = problem[y][x] === Tile.OBSTACLE,
                     isStart: boolean = problem[y][x] === Tile.START,

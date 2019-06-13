@@ -1,17 +1,17 @@
-export function $get(object: any, path: any[], defaultValue: any): any {
-    let prop: any = object;
+export function $get<T>(object: any, path: Array<string | number>, defaultValue: T): T {// tslint:disable-line no-any
+    let prop: any = object; // tslint:disable-line no-any
 
     if (!prop) {
         return defaultValue;
     }
 
-    for (let x: number = 0; x < path.length; x++) {
-        prop = prop[path[x]];
+    for (const pathPart of path) {
+        prop = prop[pathPart];
 
         if (!prop) {
             return defaultValue;
         }
     }
 
-    return prop;
+    return prop as T;
 }

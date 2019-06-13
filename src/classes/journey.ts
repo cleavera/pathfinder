@@ -6,14 +6,14 @@ import { Position } from './position';
 
 export class Journey implements IJourney {
     public distance: number;
-    private _nodes: INode[];
+    private _nodes: Array<INode>;
 
     constructor(start: INode) {
         this._nodes = [start];
         this.distance = 0;
     }
 
-    public get path(): Position[] {
+    public get path(): Array<Position> {
         return this._nodes.map((node: INode) => {
             return node.position;
         });

@@ -4,7 +4,7 @@ import { IPosition } from './position.interface';
 export interface IJourney {
     distance: number;
     length: number;
-    path: IPosition[];
+    path: Array<IPosition>;
 
     addNode(node: INode): void;
 

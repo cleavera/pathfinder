@@ -2,6 +2,7 @@ import { $isNull, Maybe } from '@cleavera/utils';
 import { Journey } from './classes/journey';
 import { Node } from './classes/node';
 import { Tile } from './constants/tile.constant';
+import { MissingStartError } from './errors/missing-start.error';
 import { $get } from './helpers/get-prop.helper';
 import { IJourney } from './interfaces/journey.interface';
 import { INode } from './interfaces/node.interface';
@@ -22,14 +23,14 @@ function traverse(node: INode, endNode: INode, journey: Maybe<IJourney> = null):
 
     node.childNodes.forEach((childNode: INode) => {
         if ($isNull(journey)) {
-            throw '';
+            throw new MissingStartError();
         }
 
         if (!journey.hasVisited(childNode)) {
             if (!best) {
                 best = traverse(childNode, endNode, journey.clone());
             } else {
-                let newJourney: Maybe<IJourney> = traverse(childNode, endNode, journey.clone());
+                const newJourney: Maybe<IJourney> = traverse(childNode, endNode, journey.clone());
 
                 if (!$isNull(newJourney) && (newJourney.distance < best.distance || (newJourney.distance === best.distance && newJourney.length < best.length))) {
                     best = newJourney;
@@ -41,8 +42,8 @@ function traverse(node: INode, endNode: INode, journey: Maybe<IJourney> = null):
     return best;
 }
 
-export function Pathfinder(problem: Tile[][]): IPosition[] {
-    let nodes: Node[] = Node.ExtractNodes(problem);
+export function Pathfinder(problem: Array<Array<Tile>>): Maybe<Array<IPosition>> {
+    const nodes: Array<Node> = Node.ExtractNodes(problem);
 
     nodes.forEach((node1: Node) => {
         nodes.forEach((node2: Node) => {
@@ -54,5 +55,5 @@ export function Pathfinder(problem: Tile[][]): IPosition[] {
         });
     });
 
-    return $get(traverse(nodes[0], nodes[nodes.length - 1]), ['path'], null);
+    return $get<Maybe<Array<IPosition>>>(traverse(nodes[0], nodes[nodes.length - 1]), ['path'], null);
 }
