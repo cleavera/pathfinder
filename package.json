@@ -15,5 +15,8 @@
   "devDependencies": {
     "tslint": "^5.17.0",
     "typescript": "^3.5.1"
+  },
+  "dependencies": {
+    "@cleavera/utils": "^3.4.0"
   }
 }

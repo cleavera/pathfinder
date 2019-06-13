@@ -1,4 +1,4 @@
-import {IPosition} from '../interfaces/position.interface';
+import { IPosition } from '../interfaces/position.interface';
 
 export class Position implements IPosition {
     public x: number;

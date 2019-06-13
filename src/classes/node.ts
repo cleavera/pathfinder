@@ -1,12 +1,13 @@
-import {Tile} from '../constants/tile.constant';
-import {DuplicateEndError} from '../errors/duplicate-end.error';
-import {DuplicateStartError} from '../errors/duplicate-start.error';
-import {MissingEndError} from '../errors/missing-end.error';
-import {MissingStartError} from '../errors/missing-start.error';
-import {$get} from '../helpers/get-prop.helper';
-import {INode} from '../interfaces/node.interface';
-import {IPosition} from '../interfaces/position.interface';
-import {Position} from './position';
+import { $isNull, Maybe } from '@cleavera/utils';
+import { Tile } from '../constants/tile.constant';
+import { DuplicateEndError } from '../errors/duplicate-end.error';
+import { DuplicateStartError } from '../errors/duplicate-start.error';
+import { MissingEndError } from '../errors/missing-end.error';
+import { MissingStartError } from '../errors/missing-start.error';
+import { $get } from '../helpers/get-prop.helper';
+import { INode } from '../interfaces/node.interface';
+import { IPosition } from '../interfaces/position.interface';
+import { Position } from './position';
 
 export class Node implements INode {
     public position: IPosition;
@@ -17,21 +18,21 @@ export class Node implements INode {
         this.childNodes = [];
     }
 
-    public static extractNodes(problem: Tile[][]): Node[] {
-        let start: Node,
-            end: Node,
+    public static ExtractNodes(problem: Tile[][]): Node[] {
+        let start: Maybe<Node> = null,
+            end: Maybe<Node> = null,
             nodes: Node[] = [];
 
         problem.forEach((row: Tile[], y: number) => {
             row.forEach((tile: Tile, x: number) => {
                 if (tile === Tile.START) {
-                    if (start) {
+                    if (!$isNull(start)) {
                         throw new DuplicateStartError();
                     }
 
                     start = new Node(new Position(x, y));
                 } else if (tile === Tile.END) {
-                    if (end) {
+                    if (!$isNull(end)) {
                         throw new DuplicateEndError();
                     }
 
@@ -85,11 +86,11 @@ export class Node implements INode {
             });
         });
 
-        if (!start) {
+        if ($isNull(start)) {
             throw new MissingStartError();
         }
 
-        if (!end) {
+        if ($isNull(end)) {
             throw new MissingEndError();
         }
 

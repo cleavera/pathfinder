@@ -1,6 +1,8 @@
-import {IJourney} from '../interfaces/journey.interface';
-import {INode} from '../interfaces/node.interface';
-import {Position} from './position';
+import { $isNull, Maybe } from '@cleavera/utils';
+import { MissingStartError } from '../errors/missing-start.error';
+import { IJourney } from '../interfaces/journey.interface';
+import { INode } from '../interfaces/node.interface';
+import { Position } from './position';
 
 export class Journey implements IJourney {
     public distance: number;
@@ -27,7 +29,7 @@ export class Journey implements IJourney {
     }
 
     public clone(): Journey {
-        let journey: Journey;
+        let journey: Maybe<Journey> = null;
 
         this._nodes.forEach((node: INode) => {
             if (!journey) {
@@ -36,6 +38,10 @@ export class Journey implements IJourney {
                 journey.addNode(node);
             }
         });
+
+        if ($isNull(journey)) {
+            throw new MissingStartError();
+        }
 
         return journey;
     }
