@@ -4,9 +4,9 @@ import { DuplicateEndError } from '../errors/duplicate-end.error';
 import { DuplicateStartError } from '../errors/duplicate-start.error';
 import { MissingEndError } from '../errors/missing-end.error';
 import { MissingStartError } from '../errors/missing-start.error';
-import { $get } from '../helpers/get-prop.helper';
 import { INode } from '../interfaces/node.interface';
 import { IPosition } from '../interfaces/position.interface';
+import { TileService } from '../services/tile.service';
 import { Position } from './position';
 
 export class Node implements INode {
@@ -26,58 +26,51 @@ export class Node implements INode {
 
         problem.forEach((row: Array<Tile>, y: number) => {
             row.forEach((tile: Tile, x: number) => {
-                if (tile === Tile.START) {
+                if (TileService.isStart(tile)) {
                     if (!$isNull(start)) {
                         throw new DuplicateStartError();
                     }
 
                     start = new Node(new Position(x, y));
-                } else if (tile === Tile.END) {
+                } else if (TileService.isEnd(tile)) {
                     if (!$isNull(end)) {
                         throw new DuplicateEndError();
                     }
 
                     end = new Node(new Position(x, y));
-                } else if (tile === Tile.EMPTY) {
+                } else if (TileService.isEmpty(tile)) {
                     /*
                      * 0 1 2
                      * 3 X 5
                      * 6 7 8
                      */
-                    const neighbours: Array<Maybe<Tile>> = [
-                        $get<Maybe<Tile>>(problem, [y - 1, x - 1], null),
-                        $get<Maybe<Tile>>(problem, [y - 1, x], null),
-                        $get<Maybe<Tile>>(problem, [y - 1, x + 1], null),
-                        problem[y][x - 1],
-                        null,
-                        problem[y][x + 1],
-                        $get<Maybe<Tile>>(problem, [y + 1, x - 1], null),
-                        $get<Maybe<Tile>>(problem, [y + 1, x], null),
-                        $get<Maybe<Tile>>(problem, [y + 1, x + 1], null)
-                    ];
+                    const neighbours: Array<Maybe<Tile>> = TileService.getNeighbours(problem, {
+                        x,
+                        y
+                    });
 
-                    if (neighbours[3] !== Tile.OBSTACLE) {
-                        if (neighbours[1] !== Tile.OBSTACLE && neighbours[0] === Tile.OBSTACLE) {
+                    if (!TileService.isObstacle(neighbours[3])) {
+                        if (!TileService.isObstacle(neighbours[1]) && TileService.isObstacle(neighbours[0])) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
 
-                        if (neighbours[7] !== Tile.OBSTACLE && neighbours[6] === Tile.OBSTACLE) {
+                        if (!TileService.isObstacle(neighbours[7]) && TileService.isObstacle(neighbours[6])) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
                     }
 
-                    if (neighbours[5] !== Tile.OBSTACLE) {
-                        if (neighbours[1] !== Tile.OBSTACLE && neighbours[2] === Tile.OBSTACLE) {
+                    if (!TileService.isObstacle(neighbours[5])) {
+                        if (!TileService.isObstacle(neighbours[1]) && TileService.isObstacle(neighbours[2])) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
                         }
 
-                        if (neighbours[7] !== Tile.OBSTACLE && neighbours[8] === Tile.OBSTACLE) {
+                        if (!TileService.isObstacle(neighbours[7]) && TileService.isObstacle(neighbours[8])) {
                             nodes.push(new Node(new Position(x, y)));
 
                             return;
@@ -116,11 +109,11 @@ export class Node implements INode {
 
         for (let x: number = startPosition.x; x <= endPosition.x; x++) {
             for (let y: number = startPosition.y; y <= endPosition.y; y++) {
-                const isNodeStartPosition: boolean = x === node1.position.x && y === node1.position.y,
-                    isNodeEndPosition: boolean = x === node2.position.x && y === node2.position.y,
-                    isObstacle: boolean = problem[y][x] === Tile.OBSTACLE,
-                    isStart: boolean = problem[y][x] === Tile.START,
-                    isEnd: boolean = problem[y][x] === Tile.END;
+                const isNodeStartPosition: boolean = this.isNodeAtPosition(node1, { x, y }),
+                    isNodeEndPosition: boolean = this.isNodeAtPosition(node2, { x, y }),
+                    isObstacle: boolean = TileService.isObstacle(problem[y][x]),
+                    isStart: boolean = TileService.isStart(problem[y][x]),
+                    isEnd: boolean = TileService.isEnd(problem[y][x]);
 
                 if (!isNodeStartPosition && !isNodeEndPosition && (isObstacle || isStart || isEnd)) {
                     isConnected = false;
@@ -128,9 +121,17 @@ export class Node implements INode {
                     break;
                 }
             }
+
+            if (!isConnected) {
+                break;
+            }
         }
 
         return isConnected;
+    }
+
+    public static isNodeAtPosition(node: INode, { x, y }: IPosition): boolean {
+        return x === node.position.x && y === node.position.y;
     }
 
     public addChildNode(childNode: INode): void {
