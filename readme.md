@@ -1,11 +1,11 @@
-# Pathfinder
+# Mauro
 
 A library for finding paths through 2d mazes.
 
 ## Example
 
 ```typescript
-import {Pathfinder, Tile} from 'pathfinder'
+import { Pathfinder, Tile } from 'mauro'
 
 Pathfinder([
     [Tile.OBSTACLE, Tile.OBSTACLE, Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   , Tile.EMPTY   ],

@@ -1,7 +1,7 @@
 {
   "name": "mauro",
   "version": "1.0.0",
-  "description": "A library for finding paths through mazes",
+  "description": "A library for finding paths through 2d mazes",
   "main": "dist/index.js",
   "scripts": {
     "build": "npm run lint && npm run compile",
